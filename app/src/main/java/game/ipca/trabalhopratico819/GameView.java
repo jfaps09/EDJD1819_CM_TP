@@ -1,6 +1,7 @@
-package game.ipca.spacefighteredjd1819;
+package game.ipca.trabalhopratico819;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,37 +16,35 @@ import java.util.List;
 public class GameView extends SurfaceView implements Runnable {
 
     volatile boolean playing;
-
     private Thread gameThread =  null;
-
-
-
-    private Paint paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
 
+    private int width, height;
+
     private Player player;
-    private List<Star> stars = new ArrayList<>();
-    private List<Enemy> enemies = new ArrayList<>();
     private Boom boom;
+
+    private List<Sprite> sprites = new ArrayList<>();
 
     public GameView(Context context, int width, int height) {
         super(context);
-
-        player = new Player(context, width,  height);
-
         surfaceHolder = getHolder();
-        paint =  new Paint();
-
+        player = new Player(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.player), width,  height);
+        sprites.add(player);
         for (int i = 0 ; i<100;i++){
-            stars.add(new Star(width,height));
+            sprites.add(new Star(context, null, width,height));
         }
 
-        for (int i = 0 ; i<3;i++){
-            enemies.add(new Enemy(context,width,height));
-        }
+        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.blue),width,height, "blue"));
+        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.golden),width,height, "golden"));
+        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.green),width,height, "green"));
 
-        boom = new Boom(context);
+        for (int i = 0 ; i<2;i++){
+            sprites.add(new Enemy(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.rock),width,height));
+        }
+        boom  = new Boom(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.boom),width,height);
+        sprites.add(boom);
     }
 
     @Override
@@ -55,56 +54,35 @@ public class GameView extends SurfaceView implements Runnable {
             draw();
             control();
         }
-
     }
 
-
-    int boomupdate = 0;
-
     private void update() {
-        if (boomupdate>10) {
-            boom.x = -250;
-            boom.y = -250;
-            boomupdate = 0;
-        }
-        boomupdate ++;
-        player.update();
-        for(Star s: stars){
+        for(Sprite s: sprites){
             s.update(player.speed);
-        }
-        for(Enemy e: enemies){
-            e.update(player.speed);
-            if (Rect.intersects(player.detectCollision, e.detectCollision)){
-                boom.x = e.x;
-                boom.y = e.y;
-                e.x=-200;
 
-            }
+            if (s instanceof Enemy)
+             if (Rect.intersects(player.detectCollision, s.detectCollision)){
+                boom.x = s.x;
+                boom.y = s.y;
+                s.x=-200;
+             }
         }
     }
 
     private void draw() {
+        Paint paint= new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
 
         if(surfaceHolder.getSurface().isValid()){
-
             canvas = surfaceHolder.lockCanvas();
-
             canvas.drawColor(Color.BLACK);
-            canvas.drawBitmap(player.bitmap,player.x,player.y,paint);
-            paint.setColor(Color.WHITE);
-
-            for(Star s: stars){
-                paint.setStrokeWidth(s.getStartWidth());
-                canvas.drawPoint(s.x,s.y,paint);
+            for(Sprite s: sprites){
+                s.draw(canvas);
+                if(s.detectCollision != null)
+                    canvas.drawRect(s.detectCollision, paint);
             }
-            for(Enemy e: enemies){
-                canvas.drawBitmap(e.bitmap,e.x,e.y,paint);
-            }
-
-            canvas.drawBitmap(boom.bitmap,boom.x,boom.y,paint);
-
             surfaceHolder.unlockCanvasAndPost(canvas);
-
         }
     }
 
@@ -133,13 +111,10 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         switch (event.getAction() & MotionEvent.ACTION_MASK){
-            case MotionEvent.ACTION_UP:
-                player.boosting = false;
-                break;
             case MotionEvent.ACTION_DOWN:
-                player.boosting = true;
+            case MotionEvent.ACTION_MOVE:
+                player.setX((int)event.getX() - player.bitmap.getWidth() / 2);
                 break;
         }
         return true;

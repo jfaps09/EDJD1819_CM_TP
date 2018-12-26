@@ -4,29 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@drawable/main_background"
     tools:context=".MainActivity">
+
+    <game.ipca.trabalhopratico819.SoundBarView
+        android:layout_width="wrap_content"
+        android:layout_height="592dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="53dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButtonPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="40dp"
         android:background="#00000000"
-        android:src="@drawable/playnow"
-        app:layout_constraintBottom_toTopOf="@+id/imageButtonHighScore"
+        android:scaleType="fitCenter"
+        android:src="@drawable/play"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonOptions"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButtonHighScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/highscore"
+        android:id="@+id/imageButtonOptions"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="112dp"
         android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/opt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent" />
 
 

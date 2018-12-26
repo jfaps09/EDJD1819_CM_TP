@@ -1,23 +1,19 @@
-package game.ipca.spacefighteredjd1819;
+package game.ipca.trabalhopratico819;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 
 import java.util.Random;
 
-public class Star {
+public class Star extends Sprite{
 
-    int x;
-    int y;
-    int speed = 0;
-    private int maxY;
-    private int minY;
-    private int maxX;
-    private int minX;
 
-    public Star (int width, int height){
-        maxY = height;
-        minY = 0;
-        maxX = width;
-        minX = 0;
 
+
+    public Star (Context context, Bitmap bitmap, int width, int height){
+        super(context,bitmap,width,height);
         Random generator = new Random();
         speed = generator.nextInt(10);
         x = generator.nextInt(maxX);;
@@ -25,10 +21,8 @@ public class Star {
     }
 
     public void update(int playerSpeed){
-
         x -= playerSpeed;
         x -= speed;
-
         if (x<0){
             x=maxX;
             Random generator = new Random();
@@ -37,9 +31,16 @@ public class Star {
         }
     }
 
-    public float getStartWidth(){
+    private float getStartWidth(){
         Random generator = new Random();
         float w = (float)(generator.nextFloat()*8.0 + 1.0);
         return w;
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        paint.setColor(Color.WHITE);
+        paint.setStrokeWidth(getStartWidth());
+        canvas.drawPoint(x,y,paint);
     }
 }

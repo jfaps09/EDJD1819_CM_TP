@@ -1,6 +1,5 @@
-package game.ipca.spacefighteredjd1819;
+package game.ipca.trabalhopratico819;
 
-import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ public class GameActivity extends AppCompatActivity {
         display.getSize(size);
         gameView = new GameView(this, size.x, size.y);
         setContentView(gameView);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
     }
 
     @Override

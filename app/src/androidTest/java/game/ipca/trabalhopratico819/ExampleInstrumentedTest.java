@@ -1,4 +1,4 @@
-package game.ipca.spacefighteredjd1819;
+package game.ipca.trabalhopratico819;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
