@@ -9,7 +9,7 @@ import java.util.Random;
 public class Fish extends Sprite{
 
     String color;
-    //int fishPoints;
+    int fishPoints;
 
     public Fish(Context context, Bitmap bitmap, int width, int height, String color){
         super(context,bitmap,width,height);
@@ -19,6 +19,18 @@ public class Fish extends Sprite{
         speed = generator.nextInt(6) + 10;
         x = generator.nextInt(maxX);
         y = height;
+
+        switch (color) {
+            case "golden":
+                fishPoints = 50;
+                break;
+            case "green":
+                fishPoints = 20;
+                break;
+            default:
+                fishPoints = 5;
+                break;
+        }
 
     }
     public void update(int playerSpeed){

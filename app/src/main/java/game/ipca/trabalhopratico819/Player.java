@@ -5,10 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 public class Player extends Sprite {
-
-    boolean boosting = false;
-    private final int MIN_SPEED = 1;
-    private final int MAX_SPEED = 20;
+    int hp;
 
     public void setX(int position) {
         x = position;
@@ -19,6 +16,8 @@ public class Player extends Sprite {
 
     public Player (Context context, Bitmap bitmap, int width, int height){
         super(context,bitmap,width,height);
+
+        hp = 3;
 
         maxX = width - bitmap.getWidth();
         minX = 0;

@@ -1,11 +1,15 @@
 package game.ipca.trabalhopratico819;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.hardware.camera2.params.BlackLevelPattern;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +29,10 @@ public class GameView extends SurfaceView implements Runnable {
     private Player player;
     private Boom boom;
 
+    private Paint scorePaint = new Paint();
+    private int score;
+    private Bitmap life[] =  new Bitmap[2];
+
     private List<Sprite> sprites = new ArrayList<>();
 
     public GameView(Context context, int width, int height) {
@@ -35,6 +43,14 @@ public class GameView extends SurfaceView implements Runnable {
         for (int i = 0 ; i<100;i++){
             sprites.add(new Star(context, null, width,height));
         }
+
+        score = 0;
+        scorePaint.setColor(Color.WHITE);
+        scorePaint.setTextSize(32);
+        scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
+        scorePaint.setAntiAlias(true);
+
+        life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
 
         sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.blue),width,height, "blue"));
         sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.golden),width,height, "golden"));
@@ -57,6 +73,8 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        //if(player.hp == 0)}
+
         for(Sprite s: sprites){
             s.update(player.speed);
 
@@ -65,7 +83,15 @@ public class GameView extends SurfaceView implements Runnable {
                 boom.x = s.x;
                 boom.y = s.y;
                 s.x=-200;
+
+                player.hp -= 1;
              }
+
+            if (s instanceof Fish)
+                if (Rect.intersects(player.detectCollision, s.detectCollision)){
+                    s.x = -200;
+                    score += ((Fish) s).fishPoints;
+                }
         }
     }
 
@@ -77,6 +103,12 @@ public class GameView extends SurfaceView implements Runnable {
         if(surfaceHolder.getSurface().isValid()){
             canvas = surfaceHolder.lockCanvas();
             canvas.drawColor(Color.BLACK);
+
+            canvas.drawText("Score : " + score, 20, 60, scorePaint);
+
+            for (int i = 0 ; i<player.hp; i++)
+                canvas.drawBitmap(life[0], 600+60*i, 30, null);
+
             for(Sprite s: sprites){
                 s.draw(canvas);
                 if(s.detectCollision != null)
