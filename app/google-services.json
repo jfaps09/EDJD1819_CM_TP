@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "309956059821",
+    "firebase_url": "https://ipca-edjd-cm-1819.firebaseio.com",
+    "project_id": "ipca-edjd-cm-1819",
+    "storage_bucket": "ipca-edjd-cm-1819.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309956059821:android:f9cb219f2d3c08bd",
+        "android_client_info": {
+          "package_name": "game.ipca.trabalhopratico1819"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309956059821-d7tk7320dbkgd32a9gei2sujloqdcsfc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4BFSptjEZOORFhLu9C0ejmMioKYNNkr0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
