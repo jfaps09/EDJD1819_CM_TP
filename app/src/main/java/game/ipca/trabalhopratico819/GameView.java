@@ -38,7 +38,7 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(Context context, int width, int height) {
         super(context);
         surfaceHolder = getHolder();
-        player = new Player(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.player), width,  height);
+        player = new Player(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.paw), width,  height);
         sprites.add(player);
         for (int i = 0 ; i<100;i++){
             sprites.add(new Star(context, null, width,height));
@@ -73,7 +73,12 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        //if(player.hp == 0)}
+        if(player.hp == 0) {
+            pause();
+            Intent intent = new Intent(getContext(), LeaderBoardActivity.class);
+            intent.putExtra("score", score);
+            getContext().startActivity(intent);
+        }
 
         for(Sprite s: sprites){
             s.update(player.speed);

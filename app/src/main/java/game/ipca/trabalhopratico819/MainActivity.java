@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton imageButtonPlay;
-    ImageButton imageButtonOpt;
+    Button buttonPlay;
+    Button buttonOpt;
+    Button buttonLb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        imageButtonPlay = findViewById(R.id.imageButtonPlay);
-        imageButtonPlay.setOnClickListener(new View.OnClickListener() {
+        buttonPlay = findViewById(R.id.buttonPlay);
+        buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, GameActivity.class);
@@ -27,11 +28,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imageButtonOpt = findViewById(R.id.imageButtonOptions);
-        imageButtonOpt.setOnClickListener(new View.OnClickListener() {
+        buttonLb = findViewById(R.id.buttonLeaderboard);
+        buttonLb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, GameActivity.class);
+                Intent intent=new Intent(MainActivity.this, LeaderBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonOpt = findViewById(R.id.buttonOptions);
+        buttonOpt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, Options.class);
                 startActivity(intent);
             }
         });
