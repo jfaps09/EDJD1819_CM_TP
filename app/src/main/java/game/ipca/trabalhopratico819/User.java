@@ -3,7 +3,9 @@ package game.ipca.trabalhopratico819;
 import com.google.firebase.database.DataSnapshot;
 
 public class User {
-    String id;
+
+    String nome;
+    int score;
 
     public User(String nome, int score) {
         this.nome = nome;
@@ -11,11 +13,7 @@ public class User {
     }
 
     public User(DataSnapshot dataSnapshot) {
-        this.id = dataSnapshot.getKey();
-        this.nome = dataSnapshot.child("nome").toString();
-        this.score  = Integer.parseInt(dataSnapshot.child("score").toString());
+        this.nome = (String)dataSnapshot.child("nome").getValue();
+        this.score  =  dataSnapshot.child("score").getValue(Integer.class);
     }
-
-    String nome;
-    int score;
 }

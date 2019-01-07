@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name="game.ipca.trabalhopratico819.GameActivity"></activity>
+        <activity android:name="game.ipca.trabalhopratico819.LeaderBoardActivity"></activity>
+        <activity android:name="game.ipca.trabalhopratico819.Options"></activity>
+
     </application>
 
 </manifest>
