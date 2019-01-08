@@ -41,7 +41,7 @@ public class Fish extends Sprite{
             y=minY;
             Random generator = new Random();
             x = (maxX / 4) * generator.nextInt(4) + maxX / 8;
-            speed = generator.nextInt(4)+16;
+            speed = generator.nextInt(5)+30;
         }
         super.update(playerSpeed);
     }

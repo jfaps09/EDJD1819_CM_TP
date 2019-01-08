@@ -63,18 +63,15 @@ public class GameView extends SurfaceView implements Runnable {
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
 
         for (int i = 0 ; i<3;i++) {
-
-            if(generator.nextInt(4) % 4 == 0)
-                sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.golden),width,height, "golden"));
-            else if(generator.nextInt(3) % 3 == 0)
-                sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.green),width,height, "green"));
-            else
-                sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.blue),width,height, "blue"));
+            sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.blue),width,height, "blue"));
         }
 
-        for (int i = 0 ; i<4;i++){
+        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.green),width,height, "green"));
+        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.golden),width,height, "golden"));
+
+        for (int i = 0 ; i<4;i++)
             sprites.add(new Enemy(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.rock),width,height));
-        }
+
         boom  = new Boom(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.ouch),width,height);
         sprites.add(boom);
 
@@ -165,7 +162,7 @@ public class GameView extends SurfaceView implements Runnable {
         switch (event.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE: {
-                if (Math.abs((player.x + player.bitmap.getWidth() / 2) - (int) event.getX()) <= 200)
+                if (Math.abs((player.x + player.bitmap.getWidth() / 2) - (int) event.getX()) <= 150)
                     player.setX((int) event.getX() - player.bitmap.getWidth() / 2);
             }
                 break;

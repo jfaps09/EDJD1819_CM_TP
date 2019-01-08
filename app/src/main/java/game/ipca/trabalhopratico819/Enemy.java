@@ -25,7 +25,7 @@ public class Enemy extends Sprite{
             y=minY;
             Random generator = new Random();
             x = (maxX / 4) * generator.nextInt(4) + maxX / 8;
-            speed = generator.nextInt(4)+21;
+            speed = generator.nextInt(5)+35;
         }
         super.update(playerSpeed);
     }
