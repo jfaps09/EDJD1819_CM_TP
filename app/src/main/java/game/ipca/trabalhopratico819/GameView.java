@@ -17,6 +17,7 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -28,6 +29,8 @@ public class GameView extends SurfaceView implements Runnable {
     private int width, height;
 
     MediaPlayer meowScream, meow;
+
+    Random generator = new Random();
 
     private Player player;
     private Boom boom;
@@ -47,12 +50,6 @@ public class GameView extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         player = new Player(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.paw), width,  height);
         sprites.add(player);
-        for (int i = 0 ; i<100;i++){
-            sprites.add(new Star(context, null, width,height));
-        }
-
-        this.meowScream = meowScream;
-        this.meow = meow;
 
         score = 0;
         scorePaint.setColor(Color.BLACK);
@@ -65,15 +62,24 @@ public class GameView extends SurfaceView implements Runnable {
 
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
 
-        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.blue),width,height, "blue"));
-        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.golden),width,height, "golden"));
-        sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.green),width,height, "green"));
+        for (int i = 0 ; i<3;i++) {
 
-        for (int i = 0 ; i<2;i++){
+            if(generator.nextInt(4) % 4 == 0)
+                sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.golden),width,height, "golden"));
+            else if(generator.nextInt(3) % 3 == 0)
+                sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.green),width,height, "green"));
+            else
+                sprites.add(new Fish(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.blue),width,height, "blue"));
+        }
+
+        for (int i = 0 ; i<4;i++){
             sprites.add(new Enemy(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.rock),width,height));
         }
         boom  = new Boom(context,BitmapFactory.decodeResource(context.getResources(), R.drawable.ouch),width,height);
         sprites.add(boom);
+
+        this.meowScream = meowScream;
+        this.meow = meow;
     }
 
     @Override
@@ -133,7 +139,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void control() {
         try {
-            gameThread.sleep(17);
+            Thread.sleep(17);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

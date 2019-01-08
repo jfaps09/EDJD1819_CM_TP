@@ -30,6 +30,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     Button buttonBack;
     MediaPlayer lbMusic;
     int newScore = -1;
+    String nome;
 
     List<User> userList = new ArrayList<>();
 
@@ -64,12 +65,16 @@ public class LeaderBoardActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("score").child(currentUser.getUid());
 
-        if(getIntent().hasExtra("score")) {
+        if(getIntent().hasExtra("score"))
             newScore = getIntent().getIntExtra("score", 0);
-        }
+
+        if(getIntent().hasExtra("nome"))
+            nome = getIntent().getStringExtra("nome");
+        else
+            nome = "N/A";
 
         if(newScore > 0) {
-            User user = new User("fg", newScore);
+            User user = new User(nome, newScore);
             myRef.setValue(user);
 
         }

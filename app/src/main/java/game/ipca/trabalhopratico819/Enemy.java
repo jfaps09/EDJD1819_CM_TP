@@ -12,7 +12,7 @@ public class Enemy extends Sprite{
         super(context,bitmap,width,height);
         this.bitmap = bitmap;
         Random generator = new Random();
-        speed = generator.nextInt(6) + 10;
+        speed = generator.nextInt(4) + 21;
         x = generator.nextInt(maxX);
         y = height;
 
@@ -25,7 +25,7 @@ public class Enemy extends Sprite{
             y=minY;
             Random generator = new Random();
             x = (maxX / 4) * generator.nextInt(4) + maxX / 8;
-            speed = generator.nextInt(6)+10;
+            speed = generator.nextInt(4)+21;
         }
         super.update(playerSpeed);
     }

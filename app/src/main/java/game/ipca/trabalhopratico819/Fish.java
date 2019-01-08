@@ -16,7 +16,7 @@ public class Fish extends Sprite{
         this.bitmap = bitmap;
         this.color = color;
         Random generator = new Random();
-        speed = generator.nextInt(6) + 10;
+        speed = generator.nextInt(4) + 16;
         x = generator.nextInt(maxX);
         y = height;
 
@@ -41,7 +41,7 @@ public class Fish extends Sprite{
             y=minY;
             Random generator = new Random();
             x = (maxX / 4) * generator.nextInt(4) + maxX / 8;
-            speed = generator.nextInt(6)+10;
+            speed = generator.nextInt(4)+16;
         }
         super.update(playerSpeed);
     }

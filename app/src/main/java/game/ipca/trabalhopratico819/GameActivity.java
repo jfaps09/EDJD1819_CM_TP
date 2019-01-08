@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.Display;
 
 public class GameActivity extends AppCompatActivity {
-
     private GameView gameView;
 
     MediaPlayer music, meowScream, meow;
+    String nome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,9 @@ public class GameActivity extends AppCompatActivity {
         music = MediaPlayer.create(this, R.raw.game_music);
         music.start();
         music.setLooping(true);
+
+        if(getIntent().hasExtra("nome"))
+            nome = getIntent().getStringExtra("nome");
 
         meowScream= MediaPlayer.create(this, R.raw.scream_meow);
         meow= MediaPlayer.create(this, R.raw.meow);
@@ -34,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     public void gameOver(int score){
         Intent intent = new Intent(this, LeaderBoardActivity.class);
         intent.putExtra("score", score);
+        intent.putExtra("nome", nome);
         startActivity(intent);
     }
 

@@ -1,11 +1,15 @@
 package game.ipca.trabalhopratico819;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,15 +32,13 @@ public class MainActivity extends AppCompatActivity {
         menuMusic.start();
         menuMusic.setLooping(true);
 
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mAuth = FirebaseAuth.getInstance();
 
         buttonPlay = findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
+                showAddItemDialog(MainActivity.this);
             }
         });
 
@@ -53,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         buttonOpt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, Options.class);
-                startActivity(intent);
             }
         });
 
@@ -70,5 +70,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         menuMusic.stop();
+    }
+
+    private void showAddItemDialog(Context c) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Type in your username")
+                .setView(taskEditText)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String nome = String.valueOf(taskEditText.getText());
+                        Intent intent=new Intent(MainActivity.this, GameActivity.class);
+                        intent.putExtra("nome", nome);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 }
