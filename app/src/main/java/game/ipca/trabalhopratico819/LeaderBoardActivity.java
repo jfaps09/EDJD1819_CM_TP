@@ -79,15 +79,12 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 }
 
                 if (userList.size() > 1) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Collections.sort(userList, new Comparator<User>() {
-                            @Override
-                            public int compare(User u1, User u2) {
-                                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                                return Integer.compare(u2.score, u1.score);
-                            }
-                        });
-                    }
+                    Collections.sort(userList, new Comparator<User>() {
+                        @Override
+                        public int compare(User u1, User u2) {
+                            return Integer.compare(u2.score, u1.score);
+                        }
+                    });
                 }
 
                 if (userList.size() > 0) textView1.setText(userList.get(0).nome);
