@@ -1,6 +1,7 @@
 package game.ipca.trabalhopratico819;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,7 +28,7 @@ import java.util.List;
 public class LeaderBoardActivity extends AppCompatActivity {
 
     Button buttonBack;
-
+    MediaPlayer lbMusic;
     int newScore = -1;
 
     List<User> userList = new ArrayList<>();
@@ -42,6 +43,10 @@ public class LeaderBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_board);
+
+        lbMusic = MediaPlayer.create(this, R.raw.win_song);
+        lbMusic.start();
+        lbMusic.setLooping(true);
 
         textView1 = findViewById(R.id.player1Text);
         textView2 = findViewById(R.id.player2Text);
@@ -147,5 +152,11 @@ public class LeaderBoardActivity extends AppCompatActivity {
             break;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lbMusic.stop();
     }
 }

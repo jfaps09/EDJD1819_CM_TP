@@ -1,6 +1,7 @@
 package game.ipca.trabalhopratico819;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,12 +15,18 @@ public class MainActivity extends AppCompatActivity {
     Button buttonOpt;
     Button buttonLb;
 
+    MediaPlayer menuMusic;
+
     FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        menuMusic = MediaPlayer.create(this, R.raw.menu_music);
+        menuMusic.start();
+        menuMusic.setLooping(true);
 
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mAuth = FirebaseAuth.getInstance();
@@ -57,5 +64,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mAuth.signInAnonymously();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        menuMusic.stop();
     }
 }

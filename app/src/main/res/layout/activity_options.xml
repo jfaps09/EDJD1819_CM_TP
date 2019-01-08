@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_game_simple"
+    android:background="@drawable/background_game_simple_small"
     tools:context="game.ipca.trabalhopratico819.Options">
 
     <Button
@@ -22,7 +22,8 @@
         app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.015"
+        tools:ignore="HardcodedText" />
 <!--
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
