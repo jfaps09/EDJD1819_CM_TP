@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -72,35 +73,33 @@ public class LeaderBoardActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot d:dataSnapshot.getChildren()) {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
                     User newUser = new User(d);
                     userList.add(newUser);
                 }
 
-                /*
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    userList.sort(new Comparator<User>() {
-                        @Override
-                        public int compare(User u1, User u2) {
-                            if(u1.score > u2.score)
-                                return 0;
-                            else
-                                return 1;
-                        }
-                    });
+                if (userList.size() > 1) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Collections.sort(userList, new Comparator<User>() {
+                            @Override
+                            public int compare(User u1, User u2) {
+                                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                                return Integer.compare(u2.score, u1.score);
+                            }
+                        });
+                    }
                 }
-*/
-                textView1.setText(userList.get(0).nome);
-                /*
-                textView2.setText(userList.get(1).nome);
-                textView3.setText(userList.get(2).nome);
-                textView4.setText(userList.get(3).nome);
-                textView5.setText(userList.get(4).nome);
-                textView6.setText(userList.get(5).nome);
-                textView7.setText(userList.get(6).nome);
-                textView8.setText(userList.get(7).nome);
-                textView9.setText(userList.get(8).nome);
-                textView10.setText(userList.get(9).nome);*/
+
+                if (userList.size() > 0) textView1.setText(userList.get(0).nome);
+                if (userList.size() > 1) textView2.setText(userList.get(1).nome);
+                if (userList.size() > 2) textView3.setText(userList.get(2).nome);
+                if (userList.size() > 3) textView4.setText(userList.get(3).nome);
+                if (userList.size() > 4) textView5.setText(userList.get(4).nome);
+                if (userList.size() > 5) textView6.setText(userList.get(5).nome);
+                if (userList.size() > 6) textView7.setText(userList.get(6).nome);
+                if (userList.size() > 7) textView8.setText(userList.get(7).nome);
+                if (userList.size() > 8) textView9.setText(userList.get(8).nome);
+                if (userList.size() > 9) textView10.setText(userList.get(9).nome);
             }
 
             @Override
@@ -118,6 +117,38 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN: {
+                if (userList.size() > 0) textView1.setText(String.valueOf(userList.get(0).score));
+                if (userList.size() > 1) textView2.setText(String.valueOf(userList.get(1).score));
+                if (userList.size() > 2) textView3.setText(String.valueOf(userList.get(2).score));
+                if (userList.size() > 3) textView4.setText(String.valueOf(userList.get(3).score));
+                if (userList.size() > 4) textView5.setText(String.valueOf(userList.get(4).score));
+                if (userList.size() > 5) textView6.setText(String.valueOf(userList.get(5).score));
+                if (userList.size() > 6) textView7.setText(String.valueOf(userList.get(6).score));
+                if (userList.size() > 7) textView8.setText(String.valueOf(userList.get(7).score));
+                if (userList.size() > 8) textView9.setText(String.valueOf(userList.get(8).score));
+                if (userList.size() > 9) textView10.setText(String.valueOf(userList.get(9).score));
+            }
+            break;
+            case MotionEvent.ACTION_UP: {
+                if (userList.size() > 0) textView1.setText(userList.get(0).nome);
+                if (userList.size() > 1) textView2.setText(userList.get(1).nome);
+                if (userList.size() > 2) textView3.setText(userList.get(2).nome);
+                if (userList.size() > 3) textView4.setText(userList.get(3).nome);
+                if (userList.size() > 4) textView5.setText(userList.get(4).nome);
+                if (userList.size() > 5) textView6.setText(userList.get(5).nome);
+                if (userList.size() > 6) textView7.setText(userList.get(6).nome);
+                if (userList.size() > 7) textView8.setText(userList.get(7).nome);
+                if (userList.size() > 8) textView9.setText(userList.get(8).nome);
+                if (userList.size() > 9) textView10.setText(userList.get(9).nome);
+            }
+            break;
+        }
+        return super.onTouchEvent(event);
     }
 }
