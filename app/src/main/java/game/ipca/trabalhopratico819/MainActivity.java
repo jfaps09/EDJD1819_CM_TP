@@ -15,12 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button buttonPlay;
-    Button buttonOpt;
-    Button buttonLb;
-
+    Button buttonPlay, buttonLb;
     MediaPlayer menuMusic;
-
     FirebaseAuth mAuth;
 
     @Override
@@ -50,14 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        buttonOpt = findViewById(R.id.buttonOptions);
-        buttonOpt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
     }
 
     @Override
